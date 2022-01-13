@@ -1,0 +1,225 @@
+{
+	"info": {
+		"_postman_id": "f8df9961-2c7b-4a6a-8bb2-124ffbdec938",
+		"name": "BugCatcherPat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LocalHost:8080",
+			"item": [
+				{
+					"name": "Retrieve Bug",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"ID matches path variable\", function () {\r",
+									"    pm.expect(jsonData.id).to.eql(\"asdfghjkl\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Description contains GET\", function() {\r",
+									"    pm.expect(jsonData.description).to.contain(\"GET\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Created Date not null\"), function() {\r",
+									"    pm.expect(jsonData.created).to.not.null;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bug/asdfghjkl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bug",
+								"asdfghjkl"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Bug",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"ID does not match post body\", function () {\r",
+									"    pm.expect(jsonData.id).to.not.eql(\"asdfghjkl\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Description contains description\", function() {\r",
+									"    pm.expect(jsonData.description).to.contain(\"This is my description.\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Created Date not null\"), function() {\r",
+									"    pm.expect(jsonData.created).to.not.null;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"asdfghjkl\",\r\n    \"description\": \"This is my description.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/bug",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bug"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Bug",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"ID matched path variable\", function () {\r",
+									"    pm.expect(jsonData.id).to.eql(\"asdfghjkl\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Description contains PUT\", function() {\r",
+									"    pm.expect(jsonData.description).to.contain(\"PUT\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Description contains updated description\", function() {\r",
+									"    pm.expect(jsonData.description).to.contain(\"This is my updated description.\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Created Date not null\"), function() {\r",
+									"    pm.expect(jsonData.created).to.not.null;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"not the real id\",\r\n    \"description\": \"This is my updated description.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/bug/asdfghjkl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bug",
+								"asdfghjkl"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Bug",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"ID matches path variable\", function () {\r",
+									"    pm.expect(jsonData.id).to.eql(\"asdfghjkl\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Description contains DELETE\", function() {\r",
+									"    pm.expect(jsonData.description).to.contain(\"DELETE\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Created Date is null\"), function() {\r",
+									"    pm.expect(jsonData.created).to.eql.null;\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/bug/asdfghjkl",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bug",
+								"asdfghjkl"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
